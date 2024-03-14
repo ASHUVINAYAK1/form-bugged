@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { saveToLocalStorage, loadFromLocalStorage } from './Utils';
 import './Form.css'; 
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -36,8 +38,9 @@ const Form = () => {
       formData.phone &&
       formData.message
     ) {
-    //   saveToLocalStorage(formData);
+      saveToLocalStorage(formData);
       console.log('Form submitted:', formData);
+      toast.success("Submitted!")
     }
   };
 
@@ -54,18 +57,18 @@ const Form = () => {
             value={formData.name}
             onChange={handleChange}
             
-          />
+          required />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
-            type="string"
+            type="email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             
-          />
+          required />
         </div>
         <div className="form-group">
           <label htmlFor="dob">Date of Birth:</label>
@@ -75,7 +78,7 @@ const Form = () => {
             name="dob"
             value={formData.dob}
             onChange={handleChange}
-          />
+          required />
         </div>
         <div className="form-group">
           <label htmlFor="address">Address:</label>
@@ -85,17 +88,17 @@ const Form = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-          />
+          required />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone Number:</label>
           <input
-            type="string"
+            type="number"
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-          />
+          required />
         </div>
         <div className="form-group">
           <label htmlFor="message">Message:</label>
@@ -104,7 +107,7 @@ const Form = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-          ></textarea>
+          required></textarea>
         </div>
         <button type="submit" className="submit-btn">Submit</button>
       </form>
