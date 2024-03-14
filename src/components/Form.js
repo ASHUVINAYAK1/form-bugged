@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { saveToLocalStorage, loadFromLocalStorage } from './Utils';
 import './Form.css'; 
+import {toast} from "react-toastify";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,10 @@ const Form = () => {
       console.log('Form submitted:', formData);
     }
   };
+
+  const raise_toast = () => {
+    toast.success("Form submitted successfully!");
+  }
 
   return (
     <div className="form-container">
@@ -106,7 +111,7 @@ const Form = () => {
             onChange={handleChange}
           ></textarea>
         </div>
-        <button type="submit" className="submit-btn">Submit</button>
+        <button type="submit" onClick={raise_toast} className="submit-btn">Submit</button>
       </form>
     </div>
   );
