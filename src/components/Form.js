@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { saveToLocalStorage, loadFromLocalStorage } from './Utils';
 import './Form.css'; 
+import {toast} from 'react-toastify';
+
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const Form = () => {
     phone: '',
     message: ''
   });
+  
 
   useEffect(() => {
     const savedData = loadFromLocalStorage();
@@ -28,6 +31,10 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.dob || !formData.address || !formData.phone || !formData.message){
+      toast.error("Please fill in all the required fields");
+    }
+    else{
     if (
       formData.name &&
       formData.email &&
@@ -35,10 +42,14 @@ const Form = () => {
       formData.address &&
       formData.phone &&
       formData.message
-    ) {
-    //   saveToLocalStorage(formData);
+      
+    )
+    toast.success("submited");
+     {
+    saveToLocalStorage(formData);
       console.log('Form submitted:', formData);
     }
+  }
   };
 
   return (
@@ -53,18 +64,19 @@ const Form = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            
+            // required
           />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
-            type="string"
+            type="Email"
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             
+            // required
           />
         </div>
         <div className="form-group">
@@ -75,6 +87,7 @@ const Form = () => {
             name="dob"
             value={formData.dob}
             onChange={handleChange}
+            // required
           />
         </div>
         <div className="form-group">
@@ -85,16 +98,18 @@ const Form = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            // required
           />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone Number:</label>
           <input
-            type="string"
+            type="Number"
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            // required
           />
         </div>
         <div className="form-group">
@@ -104,9 +119,10 @@ const Form = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
+            // required
           ></textarea>
         </div>
-        <button type="submit" className="submit-btn">Submit</button>
+        <button type="submit" className="submit-btn" >Submit</button>
       </form>
     </div>
   );
